@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreykoMonitor", "GreykoMonitor\GreykoMonitor.csproj", "{92731BD9-DBF0-43D7-85D4-65815E967EC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreykoMonitor.Test", "GreykoMonitor.Test\GreykoMonitor.Test.csproj", "{0E55FB83-313B-4A4F-8F42-FD6CBC35A32E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92731BD9-DBF0-43D7-85D4-65815E967EC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92731BD9-DBF0-43D7-85D4-65815E967EC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92731BD9-DBF0-43D7-85D4-65815E967EC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92731BD9-DBF0-43D7-85D4-65815E967EC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E55FB83-313B-4A4F-8F42-FD6CBC35A32E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E55FB83-313B-4A4F-8F42-FD6CBC35A32E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E55FB83-313B-4A4F-8F42-FD6CBC35A32E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E55FB83-313B-4A4F-8F42-FD6CBC35A32E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
