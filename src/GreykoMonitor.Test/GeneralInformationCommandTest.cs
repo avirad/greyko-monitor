@@ -8,10 +8,13 @@ namespace GreykoMonitor.Test
     public class GeneralInformationCommandTest
     {
         [TestMethod]
-        public void Test1()
+        public void GetGeneralInformation()
         {
             ICommand command = new GeneralInformationCommand();
             byte[] request = command.GetRequestData();
+
+            string hex = BitConverter.ToString(request).Replace("-", " ");
+            Assert.AreEqual(hex, "5A 5A 02 01 FD");
         }
     }
 }

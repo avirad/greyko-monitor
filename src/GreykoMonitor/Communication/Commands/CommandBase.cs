@@ -21,16 +21,22 @@ namespace GreykoMonitor.Communication.Commands
             request.Add((byte)(_requestData.Length + 2));
 
             // command Id
-            request.Add((byte)(_commandId + 1));
+            request.Add(_commandId);
 
             // request data
             for (byte n = 0; n < _requestData.Length; n++)
             {
-                request.Add((byte)(_requestData[n] + n + 2));
+                request.Add((byte)(_requestData[n]));
             }
 
             // checksum
-            request.Add((byte)(CalculateCheckSum(request.ToArray()) + request.Count));
+            request.Add((byte)(CalculateCheckSum(request.ToArray()) + request.Count - 1));
+
+            // increment request data values
+            for (byte n = 2; n < _requestData.Length + 2; n++)
+            {
+                request[n] = (byte)(request[n] + n - 1);
+            }
 
             // header
             request.InsertRange(0, _header);
