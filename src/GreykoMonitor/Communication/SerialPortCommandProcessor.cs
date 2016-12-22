@@ -21,13 +21,13 @@ namespace GreykoMonitor.Communication
         {
             _serialPort.Open();
 
-            byte[] request = command.GetRequest();
+            byte[] request = command.GetRequestData();
             _serialPort.Write(request, 0, request.Length);
 
             System.Threading.Thread.Sleep(100);
 
             var response = _serialPort.ReadExisting();
-            command.ProcessResponse(Encoding.ASCII.GetBytes(response));
+            command.ProcessResponseData(Encoding.ASCII.GetBytes(response));
 
             _serialPort.Close();
         }

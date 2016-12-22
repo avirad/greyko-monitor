@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 namespace GreykoMonitor.Communication.Commands
 {
-    public class GeneralInformationCommand : ICommand
+    public class GeneralInformationCommand : CommandBase, ICommand
     {
-        public byte[] GetRequest()
+        protected override byte _commandId { get; set; } = 0x01;
+        protected override byte[] _requestData { get; set; }
+        protected override byte[] _responseData { get; set; }
+
+        public override byte[] GetRequestData()
         {
-            throw new NotImplementedException();
+            _requestData = new byte[] { };
+
+            return base.GetRequestData();
         }
 
-        public void ProcessResponse(byte[] response)
+        public override void ProcessResponseData(byte[] response)
         {
             throw new NotImplementedException();
         }

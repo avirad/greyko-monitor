@@ -8,7 +8,7 @@ namespace GreykoMonitor.Communication.Commands
 {
     public interface ICommand
     {
-        byte[] GetRequest();
-        void ProcessResponse(byte[] response);
+        byte[] GetRequestData();
+        void ProcessResponseData(byte[] response);
     }
 }
