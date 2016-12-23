@@ -13,6 +13,8 @@ namespace GreykoMonitor.Communication.Commands
         protected abstract byte[] _requestData { get; set; }
         protected abstract byte[] _responseData { get; set; }
 
+        public abstract bool IsSuccessful { get; }
+
         public virtual byte[] GetRequestData()
         {
             List<byte> request = new List<byte>();
@@ -46,7 +48,47 @@ namespace GreykoMonitor.Communication.Commands
 
         public virtual void ProcessResponseData(byte[] response)
         {
-            throw new NotImplementedException();
+            if (response.Length < _header.Length + 2)
+            {
+                throw new Exception("Invalid response");
+            }
+
+            // check header
+            for (int n = 0; n < _header.Length; n++)
+            {
+                if (response[n] != _header[n])
+                {
+                    throw new Exception("Invalid response header");
+                }
+            }
+
+            // check length
+            if (response.Length != _header.Length + 1 + response[_header.Length])
+            {
+                throw new Exception("Invalid response length");
+            }
+
+            List<byte> data = new List<byte>();
+            for (byte n = 2; n < response.Length - 1; n++)
+            {
+                data.Add(response[n]);
+            }
+
+            // checksum validation
+            if (response[response.Length - 1] != CalculateCheckSum(data.ToArray()) + data.Count - 1)
+            {
+                throw new Exception("Response checksum validation failed");
+            }
+
+            // decrement response data values
+            for (byte n = 0; n < data.Count; n++)
+            {
+                data[n] = (byte)(data[n] - n);
+            }
+
+            data.RemoveAt(0);
+
+            _responseData = data.ToArray();
         }
 
         private byte CalculateCheckSum(byte[] data)

@@ -15,8 +15,8 @@ namespace GreykoMonitor.Test
         public void SetBoilerTemperatureTo59()
         {
             ICommand command = new SetBoilerTemperatureCommand(59);
-            byte[] request = command.GetRequestData();
 
+            byte[] request = command.GetRequestData();
             string hex = BitConverter.ToString(request).Replace("-", " ");
             Assert.AreEqual(hex, "5A 5A 03 07 3C BC");
         }
@@ -25,8 +25,8 @@ namespace GreykoMonitor.Test
         public void SetBoilerTemperatureTo60()
         {
             ICommand command = new SetBoilerTemperatureCommand(60);
-            byte[] request = command.GetRequestData();
 
+            byte[] request = command.GetRequestData();
             string hex = BitConverter.ToString(request).Replace("-", " ");
             Assert.AreEqual(hex, "5A 5A 03 07 3D BB");
         }
@@ -35,10 +35,20 @@ namespace GreykoMonitor.Test
         public void SetBoilerTemperatureTo62()
         {
             ICommand command = new SetBoilerTemperatureCommand(62);
-            byte[] request = command.GetRequestData();
 
+            byte[] request = command.GetRequestData();
             string hex = BitConverter.ToString(request).Replace("-", " ");
             Assert.AreEqual(hex, "5A 5A 03 07 3F B9");
+        }
+
+        [TestMethod]
+        public void SetBoilerTemperatureResponse()
+        {
+            ICommand command = new SetBoilerTemperatureCommand(59);
+
+            byte[] response = new byte[] { 0x5A, 0x5A, 0x02, 0x34, 0xCA };
+            command.ProcessResponseData(response);
+            Assert.AreEqual(command.IsSuccessful, true);
         }
     }
 }

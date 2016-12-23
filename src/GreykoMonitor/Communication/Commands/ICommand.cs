@@ -10,5 +10,6 @@ namespace GreykoMonitor.Communication.Commands
     {
         byte[] GetRequestData();
         void ProcessResponseData(byte[] response);
+        bool IsSuccessful { get; }
     }
 }

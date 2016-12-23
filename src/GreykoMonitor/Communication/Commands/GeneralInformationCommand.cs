@@ -12,6 +12,14 @@ namespace GreykoMonitor.Communication.Commands
         protected override byte[] _requestData { get; set; }
         protected override byte[] _responseData { get; set; }
 
+        public override bool IsSuccessful
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override byte[] GetRequestData()
         {
             _requestData = new byte[] { };
