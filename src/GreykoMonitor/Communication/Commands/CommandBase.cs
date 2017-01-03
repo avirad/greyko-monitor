@@ -13,7 +13,7 @@ namespace GreykoMonitor.Communication.Commands
         protected abstract byte[] _requestData { get; set; }
         protected abstract byte[] _responseData { get; set; }
 
-        public abstract bool IsSuccessful { get; }
+        public bool IsSuccessful { get; protected set; }
 
         public virtual byte[] GetRequestData()
         {

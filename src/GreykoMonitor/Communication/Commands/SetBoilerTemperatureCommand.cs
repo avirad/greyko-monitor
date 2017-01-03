@@ -13,15 +13,6 @@ namespace GreykoMonitor.Communication.Commands
         protected override byte[] _responseData { get; set; }
         protected byte _boilerTemperature;
 
-        public override bool IsSuccessful
-        {
-            get
-            {
-                return (_responseData?.Length == 1 &&
-                        _responseData[0] == 0x33);
-            }
-        }
-
         public SetBoilerTemperatureCommand(byte boilerTemperature)
         {
             _boilerTemperature = boilerTemperature;
@@ -36,7 +27,17 @@ namespace GreykoMonitor.Communication.Commands
 
         public override void ProcessResponseData(byte[] response)
         {
-            base.ProcessResponseData(response);
+            try
+            {
+                base.ProcessResponseData(response);
+
+                this.IsSuccessful = (_responseData?.Length == 1 &&
+                                     _responseData[0] == 0x33);
+            }
+            catch
+            {
+                this.IsSuccessful = false;
+            }
         }
     }
 }
