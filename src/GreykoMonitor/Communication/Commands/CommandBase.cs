@@ -74,16 +74,16 @@ namespace GreykoMonitor.Communication.Commands
                 data.Add(response[n]);
             }
 
-            // checksum validation
-            if (response[response.Length - 1] != CalculateCheckSum(data.ToArray()) + data.Count - 1)
+            // decrement response data values
+            for (byte n = 1; n < data.Count; n++)
             {
-                throw new Exception("Response checksum validation failed");
+                data[n] = (byte)(data[n] - n + 1);
             }
 
-            // decrement response data values
-            for (byte n = 0; n < data.Count; n++)
+            // checksum validation
+            if (response[response.Length - 1] != CalculateCheckSum(data.ToArray()) + data.Count + 2)
             {
-                data[n] = (byte)(data[n] - n);
+                throw new Exception("Response checksum validation failed");
             }
 
             data.RemoveAt(0);

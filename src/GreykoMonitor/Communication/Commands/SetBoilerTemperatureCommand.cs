@@ -32,7 +32,7 @@ namespace GreykoMonitor.Communication.Commands
                 base.ProcessResponseData(response);
 
                 this.IsSuccessful = (_responseData?.Length == 1 &&
-                                     _responseData[0] == 0x33);
+                                     _responseData[0] == 0x34);
             }
             catch
             {
