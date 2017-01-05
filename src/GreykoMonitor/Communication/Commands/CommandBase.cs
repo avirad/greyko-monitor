@@ -81,7 +81,7 @@ namespace GreykoMonitor.Communication.Commands
             }
 
             // checksum validation
-            if (response[response.Length - 1] != CalculateCheckSum(data.ToArray()) + data.Count + 2)
+            if (response[response.Length - 1] != CalculateCheckSum(data.ToArray()) + data.Count - 1)
             {
                 throw new Exception("Response checksum validation failed");
             }
@@ -95,7 +95,7 @@ namespace GreykoMonitor.Communication.Commands
         {
             int sum = data.Sum(d => d);
 
-            return (byte)((sum % 0xFF) ^ 0xFF);
+            return (byte)(((byte)sum % 0xFF) ^ 0xFF);
         }
     }
 }
