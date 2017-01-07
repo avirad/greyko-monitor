@@ -8,15 +8,24 @@ namespace GreykoMonitor.Communication.Commands
 {
     public class GeneralInformationCommand : CommandBase, ICommand
     {
-        protected const byte _expectedResponseLength = 32;
+        protected const byte _expectedResponseDataLength = 28;
+
         protected override byte _commandId { get; set; } = 0x01;
         protected override byte[] _requestData { get; set; }
         protected override byte[] _responseData { get; set; }
 
-        public byte Tboiler
-        {
-            get { return _responseData[30]; }
-        }
+        #region Public properties
+        public byte Tset { get { return _responseData[16]; } }
+
+        public byte Tboiler { get { return _responseData[17]; } }
+
+        public byte Flame { get { return _responseData[20]; } }
+
+        public bool Heater { get { return (_responseData[21] & (1 << 1)) != 0; } }
+        public bool CHPump { get { return (_responseData[21] & (1 << 3)) != 0; } }
+
+        public byte Fan { get { return _responseData[23]; } }
+        #endregion
 
         public override byte[] GetRequestData()
         {
@@ -31,7 +40,7 @@ namespace GreykoMonitor.Communication.Commands
             {
                 base.ProcessResponseData(response);
 
-                this.IsSuccessful = (response.Length == _expectedResponseLength);
+                this.IsSuccessful = (_responseData?.Length == _expectedResponseDataLength);
             }
             catch
             {
