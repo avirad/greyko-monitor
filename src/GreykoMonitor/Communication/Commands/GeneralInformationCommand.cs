@@ -23,8 +23,12 @@ namespace GreykoMonitor.Communication.Commands
 
         public bool Heater { get { return (_responseData[21] & (1 << 1)) != 0; } }
         public bool CHPump { get { return (_responseData[21] & (1 << 3)) != 0; } }
+        public bool BF { get { return (_responseData[21] & (1 << 4)) != 0; } }
+        public bool FF { get { return (_responseData[21] & (1 << 5)) != 0; } }
 
         public byte Fan { get { return _responseData[23]; } }
+
+        public bool ThermostatStop { get { return (_responseData[25] & (1 << 7)) != 0; } }
         #endregion
 
         public override byte[] GetRequestData()
