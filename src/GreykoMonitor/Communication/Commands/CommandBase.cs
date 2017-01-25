@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreykoMonitor.Communication.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,7 @@ namespace GreykoMonitor.Communication.Commands
             return request.ToArray();
         }
 
-        public virtual void ProcessResponseData(byte[] response)
+        public virtual IResponse ProcessResponseData(byte[] response)
         {
             if (response.Length < _header.Length + 2)
             {
@@ -89,6 +90,8 @@ namespace GreykoMonitor.Communication.Commands
             data.RemoveAt(0);
 
             _responseData = data.ToArray();
+
+            return null; // do not return result in the base class
         }
 
         private byte CalculateCheckSum(byte[] data)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreykoMonitor.Communication.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace GreykoMonitor.Communication.Commands
             return base.GetRequestData();
         }
 
-        public override void ProcessResponseData(byte[] response)
+        public override IResponse ProcessResponseData(byte[] response)
         {
             try
             {
@@ -37,6 +38,15 @@ namespace GreykoMonitor.Communication.Commands
             catch
             {
                 this.IsSuccessful = false;
+            }
+
+            if (this.IsSuccessful)
+            {
+                return new SuccessResponse();
+            }
+            else
+            {
+                return new FailResponse();
             }
         }
     }

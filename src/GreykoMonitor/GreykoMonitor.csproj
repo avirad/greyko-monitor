@@ -47,10 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Communication\Commands\CommandBase.cs" />
-    <Compile Include="Communication\Commands\Enums\Mode.cs" />
-    <Compile Include="Communication\Commands\Enums\Power.cs" />
-    <Compile Include="Communication\Commands\Enums\State.cs" />
-    <Compile Include="Communication\Commands\Enums\Status.cs" />
+    <Compile Include="Communication\Entities\FailResponse.cs" />
+    <Compile Include="Communication\Entities\GeneralInformationResponse.cs" />
+    <Compile Include="Communication\Entities\IResponse.cs" />
+    <Compile Include="Communication\Entities\SuccessResponse.cs" />
+    <Compile Include="Communication\Enums\Mode.cs" />
+    <Compile Include="Communication\Enums\Power.cs" />
+    <Compile Include="Communication\Enums\State.cs" />
+    <Compile Include="Communication\Enums\Status.cs" />
     <Compile Include="Communication\Commands\SetBoilerTemperatureCommand.cs" />
     <Compile Include="Communication\ICommandProcessor.cs" />
     <Compile Include="Communication\Commands\GeneralInformationCommand.cs" />

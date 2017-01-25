@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GreykoMonitor.Communication;
+using GreykoMonitor.Communication.Commands;
+using GreykoMonitor.Communication.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +16,8 @@ namespace GreykoMonitor
 {
     public partial class MainForm : Form
     {
+        private GreykoMonitor _greykoMonitor;
+
         public MainForm()
         {
             InitializeComponent();
@@ -37,6 +42,17 @@ namespace GreykoMonitor
         private void timer_Tick(object sender, EventArgs e)
         {
             // get burner status
+            _greykoMonitor = new GreykoMonitor(new SerialPortCommandProcessor(cbSerialPort.SelectedItem.ToString()));
+
+            IResponse response = _greykoMonitor.GetGeneralInformation();
+            if (response is GeneralInformationResponse)
+            {
+
+            }
+            else
+            {
+                // error
+            }
         }
     }
 }

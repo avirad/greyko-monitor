@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreykoMonitor.Communication.Commands.Enums
+namespace GreykoMonitor.Communication.Enums
 {
     public enum Status
     {

@@ -1,4 +1,5 @@
-﻿using GreykoMonitor.Communication.Commands.Enums;
+﻿using GreykoMonitor.Communication.Entities;
+using GreykoMonitor.Communication.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,36 +16,6 @@ namespace GreykoMonitor.Communication.Commands
         protected override byte[] _requestData { get; set; }
         protected override byte[] _responseData { get; set; }
 
-        #region Public properties
-        public string SwVer { get { return _responseData[1].ToString("X").Insert(1, "."); } }
-
-        public DateTime Date { get { return new DateTime(int.Parse(_responseData[7].ToString("X")), int.Parse(_responseData[6].ToString("X")), int.Parse(_responseData[5].ToString("X")),
-                                                         int.Parse(_responseData[2].ToString("X")), int.Parse(_responseData[3].ToString("X")), int.Parse(_responseData[4].ToString("X"))); } }
-
-        public Mode Mode { get { return (Mode)_responseData[8]; } }
-
-        public State State { get { return (State)_responseData[9]; } }
-
-        public Status Status { get { return (Status)_responseData[10]; } }
-
-        public byte Tset { get { return _responseData[16]; } }
-
-        public byte Tboiler { get { return _responseData[17]; } }
-
-        public byte Flame { get { return _responseData[20]; } }
-
-        public bool Heater { get { return (_responseData[21] & (1 << 1)) != 0; } }
-        public bool CHPump { get { return (_responseData[21] & (1 << 3)) != 0; } }
-        public bool BF { get { return (_responseData[21] & (1 << 4)) != 0; } }
-        public bool FF { get { return (_responseData[21] & (1 << 5)) != 0; } }
-
-        public byte Fan { get { return _responseData[23]; } }
-
-        public Power Power { get { return (Power)_responseData[24]; } }
-
-        public bool ThermostatStop { get { return (_responseData[25] & (1 << 7)) != 0; } }
-        #endregion
-
         public override byte[] GetRequestData()
         {
             _requestData = new byte[] { };
@@ -52,7 +23,7 @@ namespace GreykoMonitor.Communication.Commands
             return base.GetRequestData();
         }
 
-        public override void ProcessResponseData(byte[] response)
+        public override IResponse ProcessResponseData(byte[] response)
         {
             try
             {
@@ -63,6 +34,33 @@ namespace GreykoMonitor.Communication.Commands
             catch
             {
                 this.IsSuccessful = false;
+            }
+
+            if (this.IsSuccessful)
+            {
+                return new GeneralInformationResponse()
+                {
+                    SwVer = _responseData[1].ToString("X").Insert(1, "."),
+                    Date = new DateTime(int.Parse(_responseData[7].ToString("X")), int.Parse(_responseData[6].ToString("X")), int.Parse(_responseData[5].ToString("X")),
+                                        int.Parse(_responseData[2].ToString("X")), int.Parse(_responseData[3].ToString("X")), int.Parse(_responseData[4].ToString("X"))),
+                    Mode = (Mode)_responseData[8],
+                    State = (State)_responseData[9],
+                    Status = (Status)_responseData[10],
+                    Tset = _responseData[16],
+                    Tboiler = _responseData[17],
+                    Flame = _responseData[20],
+                    Heater = (_responseData[21] & (1 << 1)) != 0,
+                    CHPump = (_responseData[21] & (1 << 3)) != 0,
+                    BF = (_responseData[21] & (1 << 4)) != 0,
+                    FF = (_responseData[21] & (1 << 5)) != 0,
+                    Fan = _responseData[23],
+                    Power = (Power)_responseData[24],
+                    ThermostatStop = (_responseData[25] & (1 << 7)) != 0
+                };
+            }
+            else
+            {
+                return new FailResponse();
             }
         }
     }

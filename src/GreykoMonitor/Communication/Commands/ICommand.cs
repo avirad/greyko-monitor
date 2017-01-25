@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreykoMonitor.Communication.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace GreykoMonitor.Communication.Commands
     public interface ICommand
     {
         byte[] GetRequestData();
-        void ProcessResponseData(byte[] response);
+        IResponse ProcessResponseData(byte[] response);
         bool IsSuccessful { get; }
     }
 }

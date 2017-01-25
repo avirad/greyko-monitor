@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GreykoMonitor.Communication.Commands;
 using System.IO.Ports;
+using GreykoMonitor.Communication.Entities;
 
 namespace GreykoMonitor.Communication
 {
@@ -17,19 +18,21 @@ namespace GreykoMonitor.Communication
             _serialPort = new SerialPort(portName, 9600, Parity.None, 8, StopBits.One);
         }
 
-        public void ProcessCommand(ICommand command)
+        public IResponse ProcessCommand(ICommand command)
         {
             _serialPort.Open();
 
-            byte[] request = command.GetRequestData();
-            _serialPort.Write(request, 0, request.Length);
+            byte[] requestData = command.GetRequestData();
+            _serialPort.Write(requestData, 0, requestData.Length);
 
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(50);
 
-            var response = _serialPort.ReadExisting();
-            command.ProcessResponseData(Encoding.ASCII.GetBytes(response));
+            string responseData = _serialPort.ReadExisting();
+            IResponse response = command.ProcessResponseData(Encoding.ASCII.GetBytes(responseData));
 
             _serialPort.Close();
+
+            return response;
         }
     }
 }

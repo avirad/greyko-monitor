@@ -1,4 +1,5 @@
 ﻿using GreykoMonitor.Communication.Commands;
+using GreykoMonitor.Communication.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace GreykoMonitor.Communication
 {
     public interface ICommandProcessor
     {
-        void ProcessCommand(ICommand command);
+        IResponse ProcessCommand(ICommand command);
     }
 }
