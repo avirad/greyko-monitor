@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreykoMonitor.Communication.Commands.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,17 @@ namespace GreykoMonitor.Communication.Commands
         protected override byte[] _responseData { get; set; }
 
         #region Public properties
+        public string SwVer { get { return _responseData[1].ToString("X").Insert(1, "."); } }
+
+        public DateTime Date { get { return new DateTime(int.Parse(_responseData[7].ToString("X")), int.Parse(_responseData[6].ToString("X")), int.Parse(_responseData[5].ToString("X")),
+                                                         int.Parse(_responseData[2].ToString("X")), int.Parse(_responseData[3].ToString("X")), int.Parse(_responseData[4].ToString("X"))); } }
+
+        public Mode Mode { get { return (Mode)_responseData[8]; } }
+
+        public State State { get { return (State)_responseData[9]; } }
+
+        public Status Status { get { return (Status)_responseData[10]; } }
+
         public byte Tset { get { return _responseData[16]; } }
 
         public byte Tboiler { get { return _responseData[17]; } }
@@ -27,6 +39,8 @@ namespace GreykoMonitor.Communication.Commands
         public bool FF { get { return (_responseData[21] & (1 << 5)) != 0; } }
 
         public byte Fan { get { return _responseData[23]; } }
+
+        public Power Power { get { return (Power)_responseData[24]; } }
 
         public bool ThermostatStop { get { return (_responseData[25] & (1 << 7)) != 0; } }
         #endregion
