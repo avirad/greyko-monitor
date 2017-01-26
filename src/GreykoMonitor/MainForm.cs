@@ -47,7 +47,16 @@ namespace GreykoMonitor
             IResponse response = _greykoMonitor.GetGeneralInformation();
             if (response is GeneralInformationResponse)
             {
-
+                lblSwVer.Text = ((GeneralInformationResponse)response).SwVer;
+                lblDate.Text = $"{((GeneralInformationResponse)response).Date.ToShortDateString()} {((GeneralInformationResponse)response).Date.ToShortTimeString()}";
+                lblState.Text = ((GeneralInformationResponse)response).State.ToString();
+                lblStatus.Text = ((GeneralInformationResponse)response).Status.ToString();
+                lblTset.Text = $"{((GeneralInformationResponse)response).Tset} °C";
+                lblTboiler.Text = $"{((GeneralInformationResponse)response).Tboiler} °C";
+                lblFlame.Text = ((GeneralInformationResponse)response).Flame.ToString();
+                lblThermostat.Text = ((GeneralInformationResponse)response).ThermostatStop ? "STOP" : "NORMAL";
+                lblCHPump.Text = ((GeneralInformationResponse)response).CHPump ? "ON" : "OFF";
+                lblHeater.Text = ((GeneralInformationResponse)response).Heater ? "ON" : "OFF";
             }
             else
             {
