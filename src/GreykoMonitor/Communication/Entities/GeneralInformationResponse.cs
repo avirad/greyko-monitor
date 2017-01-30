@@ -14,6 +14,8 @@ namespace GreykoMonitor.Communication.Entities
         public Mode Mode { get; set; }
         public State State { get; set; }
         public Status Status { get; set; }
+        public bool IgnitionFail { get; set; }
+        public bool PelletJam { get; set; }
         public byte Tset { get; set; }
         public byte Tboiler { get; set; }
         public byte Flame { get; set; }

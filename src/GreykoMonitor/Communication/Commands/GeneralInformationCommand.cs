@@ -46,6 +46,8 @@ namespace GreykoMonitor.Communication.Commands
                     Mode = (Mode)_responseData[8],
                     State = (State)_responseData[9],
                     Status = (Status)_responseData[10],
+                    IgnitionFail = (_responseData[13] & (1 << 0)) != 0,
+                    PelletJam = (_responseData[13] & (1 << 5)) != 0,
                     Tset = _responseData[16],
                     Tboiler = _responseData[17],
                     Flame = _responseData[20],
